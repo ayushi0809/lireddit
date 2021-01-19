@@ -10,6 +10,11 @@ const breakpoints = createBreakpoints({
   xl: '80em',
 })
 
+// const overrides = {
+//   breakpoints,
+//   }
+//    const customTheme = extendTheme(overrides)
+
 const theme = extendTheme({
   colors: {
     black: '#16161D',
