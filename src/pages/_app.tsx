@@ -4,6 +4,9 @@ import { deploy } from '../../url_new';
 
 const client = createClient({
   url: deploy+"/graphql",
+  fetchOptions:{
+    credentials: "include"
+  }
 });
 console.log(deploy)
 
