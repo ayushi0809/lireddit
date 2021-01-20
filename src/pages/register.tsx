@@ -6,6 +6,7 @@ import { InputField } from '../components/InputField';
 import { Box, Button } from '@chakra-ui/react';
 //import { useMutation } from 'urql';
 import  {useRegisterMutation} from "../generated/graphql"
+import { toErrorMap } from '../utils/toErrorMap';
 
 interface registerProps {}
 
@@ -22,14 +23,12 @@ interface registerProps {}
                     
                     const response = await  register(values);
                     if(response.data?.register.errors){
-                      [{field:'username',message:'something wrong'}]
-                      setErrors({
-                         username:"hey Im an error",
-                      });
+                      setErrors(toErrorMap(response.data.register.errors));
                     }
             }}
+            >
           
-                {({isSubmitting }) => (
+                {({ isSubmitting }) => (
                 <Form>
                   <InputField name="username"
                     placeholder="username"
