@@ -15,10 +15,10 @@ import { withUrqlClient } from 'next-urql';
          const [,login] = useLoginMutation();
         return (
             <Wrapper variant = "small">
-            <Formik initialValues = {{ username:"",password:""}}
+            <Formik initialValues = {{ usernameorEmail:"",password:""}}
             onSubmit={async (values,{setErrors}) => {
                     
-                    const response = await  login({options:values});
+                    const response = await  login(values);
                     if(response.data?.login.errors){
                       setErrors(toErrorMap(response.data.login.errors));
                     }
@@ -31,9 +31,9 @@ import { withUrqlClient } from 'next-urql';
           
                 {({ isSubmitting }) => (
                 <Form>
-                  <InputField name="username"
-                    placeholder="username"
-                    label="Username">
+                  <InputField name="usernameorEmail"
+                    placeholder="username or Email"
+                    label="Username or Email">
                   </InputField>
                   <Box mt={4}>
                     <InputField name="password"
