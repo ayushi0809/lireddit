@@ -1,5 +1,5 @@
 overwrite: true
-schema: "https://gentle-newt-45.loca.lt/graphql"
+schema: "https://plastic-puma-58.loca.lt/graphql"
 documents: "src/graphql/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
