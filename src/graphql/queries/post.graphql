@@ -1,5 +1,5 @@
 query Post{
-    post {
+    posts {
         id
         createdAt
         updatedAt
