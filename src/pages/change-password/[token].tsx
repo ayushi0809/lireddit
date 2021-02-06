@@ -12,7 +12,7 @@ import { withUrqlClient } from 'next-urql';
 import NextLink from "next/link";
 
 
- const ChangePassword: NextPage<{token:string}> = () => {
+ const ChangePassword: NextPage = () => {
    const router = useRouter()
    const [tokenError,setTokenError] = useState("");
    const [,changePassword] = useChangePasswordMutation()

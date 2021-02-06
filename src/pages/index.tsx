@@ -10,7 +10,11 @@ import NextLink from "next/link";
 
 
 const Index = () => {
-const [{data}] = usePostQuery();
+const [{data}] = usePostQuery({
+    variables:{
+        limit: 10,
+    },
+});
 return (<Layout>
     <NextLink href = "/create-post">
 <Link>Create Post</Link>
