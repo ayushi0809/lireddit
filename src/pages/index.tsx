@@ -8,6 +8,7 @@ import { Box, Button, Flex, Heading, Icon, IconButton, Link, Stack, Text } from 
 import React, { useState } from "react";
 import NextLink from "next/link";
 import {ChevronUpIcon, ChevronDownIcon} from "@chakra-ui/icons"
+import { UpdootSection } from "../components/UpdootSectiom";
 
 
 const Index = () => {
@@ -30,8 +31,8 @@ return (<Layout>
      <Stack spacing = {8}> 
      {data!.posts.posts.map((p) => 
      <Flex key = {p.id} p={5} shadow="md" borderWidth="1px">
-         
-         <Box>
+       <UpdootSection post = {p}></UpdootSection>  
+     <Box>
      <Heading fontSize="xl">{p.title}</Heading>
      <Text>Posted by {p.creator.username}</Text>
      <Text mt={4}>{p.textSnippet}</Text>
