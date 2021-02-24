@@ -20,20 +20,17 @@ if(!fetching && !data){
     return <div> Query Failed for some reasons </div>
 }
 return (<Layout>
-    <Flex align = "center">
-        <Heading>Lireddit</Heading>
-    <NextLink href = "/create-post">
-<Link ml = "auto" >Create Post</Link>
-</NextLink>
-</Flex>
-<br />
 {!data && fetching ? <div>loading...</div>:(
      <Stack spacing = {8}> 
      {data!.posts.posts.map((p) => 
      <Flex key = {p.id} p={5} shadow="md" borderWidth="1px">
        <UpdootSection post = {p}></UpdootSection>  
      <Box>
+         <NextLink href = "/post/[id]" as = {`/post/${p.id}`}>
+         <Link>
      <Heading fontSize="xl">{p.title}</Heading>
+     </Link>
+     </NextLink>
      <Text>Posted by {p.creator.username}</Text>
      <Text mt={4}>{p.textSnippet}</Text>
      </Box>

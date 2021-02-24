@@ -8,6 +8,7 @@ import { pipe, tap } from 'wonka';
 import { Exchange } from 'urql';
 import Router from "next/router"
 import { gql } from '@urql/core';
+import { isServer } from "./isServer";
 
 export const errorExchange: Exchange = ({ forward }) => ops$ => {
   return pipe(
@@ -105,13 +106,21 @@ export const errorExchange: Exchange = ({ forward }) => ops$ => {
 };
 
 export const createUrqlClient= (ssrExchange: any, ctx: any ) =>
+
 {
+  let cookie = ''
+  if(isServer()){
+    cookie = ctx.req.headers.cookie;
+  }
   
   return{
 
     url: deploy+"/graphql",
     fetchOptions:{
       credentials: "include" as const ,
+      headers : cookie ? {
+        cookie
+      }: undefined,
     },
     exchanges: [dedupExchange, cacheExchange({
       keys:{
