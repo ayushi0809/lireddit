@@ -2,12 +2,12 @@
 import {NavBar} from "../components/NavBar"
 import {withUrqlClient} from "next-urql"
 import { createUrqlClient} from "../utils/createUrqlClient"
-import { usePostsQuery } from "../generated/graphql";
+import { useDeletePostMutation, usePostsQuery } from "../generated/graphql";
 import { Layout } from "../components/Layout";
 import { Box, Button, Flex, Heading, Icon, IconButton, Link, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from "react";
 import NextLink from "next/link";
-import {ChevronUpIcon, ChevronDownIcon} from "@chakra-ui/icons"
+import { DeleteIcon } from "@chakra-ui/icons"
 import { UpdootSection } from "../components/UpdootSectiom";
 
 
@@ -16,25 +16,29 @@ const Index = () => {
 const [{data , fetching}] = usePostsQuery({
     variables,
 });
+const [,deletePost] = useDeletePostMutation();
 if(!fetching && !data){
     return <div> Query Failed for some reasons </div>
 }
 return (<Layout>
 {!data && fetching ? <div>loading...</div>:(
      <Stack spacing = {8}> 
-     {data!.posts.posts.map((p) => 
-     <Flex key = {p.id} p={5} shadow="md" borderWidth="1px">
+     {data!.posts.posts.map((p) => !p ? null:
+     (<Flex key = {p.id} p={5} shadow="md" borderWidth="1px">
        <UpdootSection post = {p}></UpdootSection>  
-     <Box>
+     <Box flex = {1}>
          <NextLink href = "/post/[id]" as = {`/post/${p.id}`}>
          <Link>
      <Heading fontSize="xl">{p.title}</Heading>
      </Link>
      </NextLink>
      <Text>Posted by {p.creator.username}</Text>
-     <Text mt={4}>{p.textSnippet}</Text>
+     <Flex align = "center">
+     <Text  flex = {1} mt={4}>{p.textSnippet}</Text>
+     <IconButton  ml = "auto"  aria-label = "Delete Post" icon = {<DeleteIcon/>} onClick={() => { deletePost({id: p.id})}}></IconButton>
+     </Flex>
      </Box>
-   </Flex>
+   </Flex>)
    )}
      </Stack>)}
      {
