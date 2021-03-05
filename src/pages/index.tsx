@@ -13,12 +13,17 @@ import { createUrqlClient } from "../utils/createUrqlClient";
 const Index = () => {
     const [variables,setVariables] =  useState({limit:10, cursor: null as null | string })
     
-    const [{data , fetching}] = usePostsQuery({
+    const [{data, error, fetching}] = usePostsQuery({
     variables,
 });
 
 if(!fetching && !data){
-    return <div> Query Failed for some reasons </div>
+    return (
+    <div>
+    <div> Query Failed for some reasons </div>
+    <div>{error?.message}</div>
+    </div>
+    );
 }
 return (<Layout>
 {!data && fetching ? <div>loading...</div>:(
